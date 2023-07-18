@@ -3,17 +3,18 @@ import Wrapper from "../assets/wrappers/RegisterPage";
 import { Logo } from "../components";
 import FormRow from "../components/FormRow";
 import { toast } from "react-toastify";
-
+import { useSelector, useDispatch } from "react-redux";
+import { registerUser, loginUser } from "../features/user/userSlice";
 const initialState = {
   name: "",
   email: "",
   password: "",
   isMember: true,
 };
-
 export default function Register() {
+  const dispatch = useDispatch();
   const [values, setValues] = useState(initialState);
-
+  const { isLoading, user } = useSelector((store) => store.user);
   function handleChange(e) {
     const value = e.target.value;
     const name = e.target.name;
@@ -26,10 +27,17 @@ export default function Register() {
     const { name, password, email, isMember } = values;
     if (!email || !password || (!isMember && !name)) {
       toast.error("please fill the details");
+      return;
     }
 
-    setValues({ ...values, name: "", password: "", email: "" });
+    // setValues({ ...values, name: "", password: "", email: "" });
     // console.log(e.target);
+
+    if (isMember) {
+      dispatch(loginUser({ email, password }));
+      return;
+    }
+    dispatch(registerUser({ name, password, email }));
   }
 
   function handleToggle() {
@@ -62,12 +70,12 @@ export default function Register() {
           handleChange={handleChange}
           name="password"
         />
-        <button type="submit" className="btn btn-block">
-          submit
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
+          {isLoading ? "loading" : "submit"}
         </button>
         <p>
           {values.isMember ? "Already a member ?" : "Not a member yet"}
-          <button onClick={handleToggle} className="member-btn">
+          <button type="button" onClick={handleToggle} className="member-btn">
             {values.isMember ? "Login" : "Register"}
           </button>
         </p>
