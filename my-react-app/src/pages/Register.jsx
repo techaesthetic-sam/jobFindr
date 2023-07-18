@@ -74,9 +74,9 @@ export default function Register() {
           {isLoading ? "loading" : "submit"}
         </button>
         <p>
-          {values.isMember ? "Already a member ?" : "Not a member yet"}
+          {!values.isMember ? "Already a member ?" : "Not a member yet"}
           <button type="button" onClick={handleToggle} className="member-btn">
-            {values.isMember ? "Login" : "Register"}
+            {!values.isMember ? "Login" : "Register"}
           </button>
         </p>
       </form>
