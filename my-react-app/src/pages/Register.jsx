@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Wrapper from "../assets/wrappers/RegisterPage";
 import { Logo } from "../components";
 import FormRow from "../components/FormRow";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { registerUser, loginUser } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
+
 const initialState = {
   name: "",
   email: "",
@@ -13,6 +15,7 @@ const initialState = {
 };
 export default function Register() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
   const { isLoading, user } = useSelector((store) => store.user);
   function handleChange(e) {
@@ -44,6 +47,13 @@ export default function Register() {
     setValues({ ...values, isMember: !values.isMember });
   }
 
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+  }, [user]);
   return (
     <Wrapper className="full-page">
       <form className="form" onSubmit={handleSubmit}>
