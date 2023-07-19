@@ -21,8 +21,6 @@ export const registerUser = createAsyncThunk(
       //   console.log(resp.data);
       return resp.data;
     } catch (error) {
-      //   toast.error(error.response.data.msg);
-
       return thunkAPI.rejectWithValue(error.response.data.msg);
     }
   }
@@ -33,8 +31,6 @@ export const loginUser = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
       const resp = await customFetch.post("/auth/login", user);
-
-      //   console.log(resp.data);
       return resp.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.msg);
