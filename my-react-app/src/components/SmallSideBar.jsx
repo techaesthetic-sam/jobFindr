@@ -1,5 +1,5 @@
 import React from "react";
-
+import Wrapper from "../wrappers/SmallSidebar";
 export default function SmallSideBar() {
-  return <div>SmallSideBar</div>;
+  return <Wrapper>SmallSideBar</Wrapper>;
 }

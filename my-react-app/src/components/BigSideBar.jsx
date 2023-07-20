@@ -1,5 +1,5 @@
 import React from "react";
-
+import Wrapper from "../wrappers/BigSidebar";
 export default function BigSideBar() {
-  return <div>BigSideBar</div>;
+  return <Wrapper>BigSideBar</Wrapper>;
 }
