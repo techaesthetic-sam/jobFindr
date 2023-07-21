@@ -1,10 +1,16 @@
 import React from "react";
 
-export default function FormRow({ type, name, handleChange, value }) {
+export default function FormRow({
+  type,
+  name,
+  handleChange,
+  value,
+  labelText,
+}) {
   return (
     <div className="form-row">
       <label htmlFor="name" className="form-label">
-        {name}
+        {name || labelText}
       </label>
       <input
         type={type}
